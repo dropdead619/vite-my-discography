@@ -18,25 +18,24 @@ onMounted(() => {
 
 <template>
   <div class="flex">
-    <div class="h-screen py-8 text-center shadow-xl px-28 min-w-fit dark:text-slate-50 dark:shadow-slate-200">
+    <div class="h-screen px-3 py-8 text-center shadow-xl min-w-fit dark:text-slate-50 dark:shadow-gray-400 dark:shadow-md">
       <img
-        class="rounded-full w-80 h-80"
+        class="w-20 h-20 m-auto rounded-full"
         :src="state.band.coverUrl"
         :alt="state.band.name"
       >
-      <h2 class="text-3xl font-semibold pt-7">
+      <h2 class="pt-4 text-sm font-semibold">
         {{ state.band.name }}
       </h2>
       <span
         v-for="genre in state.band.genre"
         :key="genre"
-        class="p-2 text-gray-400"
+        class="p-2 text-xs text-gray-400"
       >{{ genre }}</span>
     </div>
     <Swiper
       :modules="[Navigation]"
       navigation
-      class="py-20"
       :slides-per-view="1"
       :space-between="50"
     >
