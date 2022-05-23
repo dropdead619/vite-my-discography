@@ -5,11 +5,14 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    BandDetailedView: typeof import('./src/components/Band/BandDetailedView.vue')['default']
     BandItems: typeof import('./src/components/Band/BandItems.vue')['default']
     BandList: typeof import('./src/components/Band/BandList.vue')['default']
-    DetailedView: typeof import('./src/components/Band/DetailedView.vue')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    BaseButton: typeof import('./src/components/UI/BaseButton.vue')['default']
+    IconMoon: typeof import('./src/components/Icons/IconMoon.vue')['default']
+    IconSun: typeof import('./src/components/Icons/IconSun.vue')['default']
+    RouterLink: typeof import('vue-router')['RouterLink']
+    RouterView: typeof import('vue-router')['RouterView']
+    TheHeader: typeof import('./src/components/TheHeader.vue')['default']
   }
 }
 

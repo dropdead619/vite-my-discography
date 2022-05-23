@@ -1,9 +1,22 @@
-export type ReleaseType = 'single' | 'ep' | 'album';
+export const enum ReleaseType {
+  SINGLE = 'single',
+  EP = 'ep',
+  ALBUM = 'album',
+}
 
 export interface Band {
-  id: number,
-  name: string,
-  description: string,
-  coverUrl: string,
-  genre: string[],
+  id: number
+  name: string
+  description: string
+  coverUrl: string
+  genre: string[]
+  content: BandContent[]
+}
+
+export interface BandContent {
+  id: number
+  type: ReleaseType
+  name: string
+  coverUrl?: string
+  year: number
 }
