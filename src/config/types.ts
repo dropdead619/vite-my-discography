@@ -19,4 +19,12 @@ export interface BandContent {
   name: string
   coverUrl?: string
   year: number
+  tracks: Track[]
+  genres: string[]
+}
+
+export interface Track {
+  id: number
+  length: number
+  name: string
 }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { EffectCards, Navigation } from 'swiper';
+import { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import type { Band } from '../config/types';
 import { useBandStore } from '../stores/band.store';
@@ -45,6 +45,7 @@ onMounted(() => {
           :name="content.name"
           :cover-url="content.coverUrl"
         />
+        <BandTracks class="max-w-md m-auto mt-4" :tracks="content.tracks" />
       </SwiperSlide>
     </Swiper>
   </div>
