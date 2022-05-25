@@ -1,8 +1,8 @@
 export default function useMusicPlayer() {
   const isPlaying = ref(false);
-  const currentTrack = ref(0);
+  const currentTrack = ref('');
 
-  function play(id: number) {
+  function play(id: string) {
     currentTrack.value = id;
     isPlaying.value = true;
   }

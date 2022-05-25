@@ -1,13 +1,25 @@
 <script setup lang="ts">
-import type { PropType, Ref } from 'vue';
+import type { Ref } from 'vue';
 import type { Track } from '@/config/types';
 import useMusicPlayer from '@/composables/useMusicPlayer';
+import { useBandStore } from '@/stores/band.store';
 
 const props = defineProps({
-  tracks: {
-    type: Array as PropType<Array<Track>>,
+  albumId: {
+    type: String,
     required: true,
   },
+});
+
+const { fetchTracks } = useBandStore();
+const state = reactive({
+  tracks: {} as Track[],
+});
+
+onMounted(() => {
+  fetchTracks(props.albumId).then((res) => {
+    state.tracks = res as Track[];
+  });
 });
 
 const showByIndex: Ref<null | number> = ref(null);
@@ -18,7 +30,7 @@ const { play, pause, isPlaying, currentTrack } = useMusicPlayer();
 <template>
   <ul>
     <li
-      v-for="(track, index) in props.tracks"
+      v-for="(track, index) in state.tracks"
       :key="track.id"
       class="flex justify-between px-4 py-2 my-2 rounded-full cursor-default bg-slate-200"
       @mouseover="showByIndex = index"

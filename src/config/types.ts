@@ -5,26 +5,28 @@ export const enum ReleaseType {
 }
 
 export interface Band {
-  id: number
+  id: string
   name: string
   description: string
   coverUrl: string
   genre: string[]
-  content: BandContent[]
+  content?: BandContent[]
 }
 
 export interface BandContent {
-  id: number
+  id: string
+  bandId: string
   type: ReleaseType
   name: string
   coverUrl?: string
   year: number
-  tracks: Track[]
+  tracks?: Track[]
   genres: string[]
 }
 
 export interface Track {
-  id: number
+  id: string
+  albumId: string
   length: number
   name: string
 }
