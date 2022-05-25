@@ -13,6 +13,9 @@ module.exports = {
       backgroundColor: {
         'theme-dark': '#1A1A1A',
       },
+      transitionProperty: {
+        width: 'width',
+      },
     },
   },
   plugins: [],
