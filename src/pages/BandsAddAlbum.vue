@@ -3,7 +3,7 @@ import { useField, useForm } from 'vee-validate';
 import type { StorageError } from 'firebase/storage';
 import { getDownloadURL } from 'firebase/storage';
 import { useBandStore } from '../stores/band.store';
-import type { BandContent, ReleaseType } from '@/config/types';
+import type { BandContent, ReleaseType, Track } from '@/config/types';
 import { generateID } from '@/config/utilities';
 import { anything, required } from '@/config/validations';
 
@@ -14,7 +14,7 @@ const validationSchema = {
   genres: anything,
 };
 
-const { addAlbum, addImages } = useBandStore();
+const { addAlbum, addImages, addTrackFile, addTrack } = useBandStore();
 
 const { handleSubmit, errors } = useForm({
   validationSchema,
@@ -26,6 +26,8 @@ const { value: name } = useField<string>('name');
 const { value: type } = useField<ReleaseType>('type', undefined, { initialValue: 'single' as ReleaseType });
 const { value: year } = useField<number>('year');
 const { value: genres } = useField<string>('genres', undefined, { initialValue: '' });
+const content = ref<BandContent>();
+
 const image = ref<File | null>(null);
 const imageError = ref<StorageError | null>(null);
 const fileProgress = ref(0);
@@ -35,9 +37,9 @@ const onFileSelected = (event: any) => {
   image.value = event.target.files[0];
 };
 const onSubmit = handleSubmit((values: unknown) => {
-  const content: BandContent = values as BandContent;
-  content.id = generateID();
-  content.bandId = route.params.id as string;
+  content.value = values as BandContent;
+  content.value.id = generateID();
+  content.value.bandId = route.params.id as string;
   if (image.value) {
     const uploadTask = addImages(image.value);
     uploadTask.on('state_changed',
@@ -49,10 +51,12 @@ const onSubmit = handleSubmit((values: unknown) => {
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          content.coverUrl = downloadURL;
-          addAlbum(content).then(() => {
-            isFormSubmitted.value = true;
-          });
+          if (content.value) {
+            content.value.coverUrl = downloadURL;
+            addAlbum(content.value).then(() => {
+              isFormSubmitted.value = true;
+            });
+          }
         });
       },
     );
@@ -74,22 +78,44 @@ const onTrackUploadChange = (e: any) => {
 };
 
 const onTrackAddSubmit = () => {
-  if (trackName.value) {
-    selectedTracks.value?.push({
-      number: selectedTracks.value.length + 1,
-      name: trackName.value,
-      selectedTrack: selectedTrack.value,
-    });
-    toggleModalVisibility();
-    trackName.value = '';
+  if (trackName.value && selectedTrack.value) {
+    const uploadTrack = addTrackFile(selectedTrack.value);
+    uploadTrack.on('state_changed',
+      (snapshot) => {
+        fileProgress.value = +((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
+      },
+      (error) => {
+        imageError.value = error;
+      },
+      () => {
+        getDownloadURL(uploadTrack.snapshot.ref).then((downloadURL) => {
+          if (content.value) {
+            const track: Track = {
+              id: generateID(),
+              albumId: content.value.id,
+              name: trackName.value,
+              trackUrl: downloadURL,
+              number: selectedTracks.value.length + 1,
+            };
+            addTrack(track);
+            toggleModalVisibility();
+            selectedTracks.value?.push({
+              number: track.number,
+              name: trackName.value,
+              selectedTrack: selectedTrack.value,
+            });
+            trackName.value = '';
+          }
+        });
+      });
   }
 };
 </script>
 
 <template>
   <BaseCard>
-    <form class=" w-full p-5 border-2 rounded border-slate-100" @submit="onSubmit">
-      <h2 class="font-bold text-2xl mb-5">
+    <form class="w-full p-5 border-2 rounded border-slate-100" @submit="onSubmit">
+      <h2 class="mb-5 text-2xl font-bold">
         Add new content:
       </h2>
       <div class="grid grid-cols-2 gap-4 ">
@@ -145,19 +171,19 @@ const onTrackAddSubmit = () => {
       >
         Submit
       </BaseButton>
-      <div v-else class="text-green-600 mt-4">
+      <div v-else class="mt-4 text-green-600">
         Succesfully added
       </div>
     </form>
     <form v-if="isFormSubmitted" @submit.prevent="onTrackAddSubmit">
-      <h2 class="font-bold text-2xl my-5">
+      <h2 class="my-5 text-2xl font-bold">
         Add new track:
       </h2>
       <div>
         <span
           v-for="track in selectedTracks"
           :key="track.number"
-          class="block mb-2 rounded p-2 max-w-xs bg-gray-200"
+          class="block max-w-xs p-2 mb-2 bg-gray-200 rounded"
         >
           {{ track.number }}. {{ track.name }}
         </span>
@@ -171,16 +197,17 @@ const onTrackAddSubmit = () => {
       </BaseButton>
       <BaseModal v-if="isModalVisible" @toggle="toggleModalVisibility">
         <template #header>
-          <span class="font-bold text-2xl">Add new track</span>
+          <span class="text-2xl font-bold">Add new track</span>
         </template>
         <BaseInput v-model="trackName" label="Track name: " />
         <InputFile
+          :file-progress="fileProgress"
           accept="audio/mp3"
           @change="onTrackUploadChange"
         />
         <template #footer>
           <div class="mx-auto">
-            <BaseButton class="bg-green-700 mr-4">
+            <BaseButton class="mr-4 bg-green-700">
               Add
             </BaseButton>
             <BaseButton class="bg-red-700" @click="toggleModalVisibility">

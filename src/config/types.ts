@@ -26,7 +26,8 @@ export interface BandContent {
 
 export interface Track {
   id: string
+  number: number
   albumId: string
-  length: number
+  trackUrl: string
   name: string
 }

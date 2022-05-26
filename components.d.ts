@@ -20,7 +20,6 @@ declare module '@vue/runtime-core' {
     IconPlay: typeof import('./src/components/Icons/IconPlay.vue')['default']
     IconSun: typeof import('./src/components/Icons/IconSun.vue')['default']
     InputFile: typeof import('./src/components/form/InputFile.vue')['default']
-    InputImage: typeof import('./src/components/form/InputImage.vue')['default']
     MusicPlayer: typeof import('./src/components/MusicPlayer.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

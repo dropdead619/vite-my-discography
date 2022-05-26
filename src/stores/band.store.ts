@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref, uploadBytesResumable } from 'firebase/storage';
 import { doc, getDocs, query, setDoc, where } from 'firebase/firestore';
-import type { Band, BandContent } from '../config/types';
+import type { Band, BandContent, Track } from '../config/types';
 import { bandsRef, contentRef, db, storage, tracksRef } from '../firebaseApp';
 import { generateID, getFileExtension } from '@/config/utilities';
 
@@ -40,6 +40,14 @@ export const useBandStore = defineStore('app', {
       const extension = getFileExtension(image.name);
       const imagesRef = ref(storage, `images/${generateID()}.${extension}`);
       return uploadBytesResumable(imagesRef, image);
+    },
+    addTrack(trackData: Track) {
+      setDoc(doc(db, 'tracks', trackData.id), trackData);
+    },
+    addTrackFile(track: File) {
+      const extension = getFileExtension(track.name);
+      const tracksRef = ref(storage, `tracks/${generateID()}.${extension}`);
+      return uploadBytesResumable(tracksRef, track);
     },
   },
   persist: true,

@@ -45,25 +45,23 @@ const { play, pause, isPlaying, currentTrack } = useMusicPlayer();
             <IconPause
               v-if="isPlaying && currentTrack === track.id"
               class="w-full"
-              @click="pause"
+              @click="pause()"
             />
             <IconPlay
               v-else
               class="w-full"
-              @click="play(track.id)"
+              @click="play(track)"
             />
           </button>
           <span v-else>
-            {{ index + 1 }}.
+            {{ track.number }}.
           </span>
         </div>
         <div class="text-lg font-semibold">
           {{ track.name }}
         </div>
       </div>
-      <div>
-        {{ track.length }}
-      </div>
+      <div />
     </li>
   </ul>
 </template>

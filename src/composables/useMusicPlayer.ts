@@ -1,9 +1,14 @@
+import type { Track } from '@/config/types';
+
 export default function useMusicPlayer() {
   const isPlaying = ref(false);
   const currentTrack = ref('');
+  const audio = ref<HTMLAudioElement>();
 
-  function play(id: string) {
-    currentTrack.value = id;
+  function play(track: Track) {
+    currentTrack.value = track.id;
+    audio.value = new Audio(track.trackUrl);
+    audio.value.play();
     isPlaying.value = true;
   }
 
@@ -12,6 +17,7 @@ export default function useMusicPlayer() {
   // }
 
   function pause() {
+    audio.value?.pause();
     isPlaying.value = false;
   }
 
