@@ -34,9 +34,9 @@ function redirectToBand() {
 
 <template>
   <div class="cursor-pointer overflow-hidden text-center transition border border-solid border-gray-200 dark:border-gray-800 rounded-xl ease-in-out delay-75 max-w-sm mt-12 shadow-[6px_6px_8px_0px_rgba(34,60,80,0.2)] dark:border-0 dark:shadow-none mx-auto p-0 hover:scale-105 hover:shadow-[14px_14px_8px_0px_rgba(34,60,80,0.2)]" @click="redirectToBand">
-    <div>
+    <div class="w-full">
       <img
-        class="w-full h-96"
+        class="w-96 h-96"
         :src="props.coverUrl"
         :alt="props.name"
       >

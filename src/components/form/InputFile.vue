@@ -14,17 +14,29 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  fileProgress: {
+    type: Number,
+    default: 0,
+  },
 });
 </script>
 
 <template>
   <div class="flex flex-col w-full">
     <label class="font-semibold"> {{ props.label }} </label>
-    <input
-      type="file"
-      v-bind="$attrs"
-      class="p-2 max-w-xs rounded border border-solid border-slate-300 outline-none dark:text-black"
-    >
+    <div class="flex items-center">
+      <input
+        v-bind="$attrs"
+        type="file"
+        :class="{ 'bg-gray-300': $attrs.disabled }"
+        class="block file:mr-4 file:py-2 file:px-4
+      file:rounded-full file:border-0
+      file:text-sm file:font-semibold
+      file:bg-violet-50 file:text-violet-700
+      hover:file:bg-violet-100"
+      >
+      <BaseFileProgress :file-progress="fileProgress" />
+    </div>
     <div v-if="props.error" class="text-red-600">
       {{ props.error }}
     </div>

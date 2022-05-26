@@ -36,9 +36,9 @@ export const useBandStore = defineStore('app', {
     addAlbum(contentData: BandContent) {
       return setDoc(doc(db, 'content', contentData.id), contentData);
     },
-    addFiles(image: File) {
+    addImages(image: File) {
       const extension = getFileExtension(image.name);
-      const imagesRef = ref(storage, `${generateID()}.${extension}`);
+      const imagesRef = ref(storage, `images/${generateID()}.${extension}`);
       return uploadBytesResumable(imagesRef, image);
     },
   },

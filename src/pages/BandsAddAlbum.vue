@@ -3,7 +3,6 @@ import { useField, useForm } from 'vee-validate';
 import type { StorageError } from 'firebase/storage';
 import { getDownloadURL } from 'firebase/storage';
 import { useBandStore } from '../stores/band.store';
-import IconCheck from '../components/Icons/IconCheck.vue';
 import type { BandContent, ReleaseType } from '@/config/types';
 import { generateID } from '@/config/utilities';
 import { anything, required } from '@/config/validations';
@@ -15,7 +14,7 @@ const validationSchema = {
   genres: anything,
 };
 
-const { addAlbum, addFiles } = useBandStore();
+const { addAlbum, addImages } = useBandStore();
 
 const { handleSubmit, errors } = useForm({
   validationSchema,
@@ -29,12 +28,8 @@ const { value: year } = useField<number>('year');
 const { value: genres } = useField<string>('genres', undefined, { initialValue: '' });
 const image = ref<File | null>(null);
 const imageError = ref<StorageError | null>(null);
-const fileInput = ref<HTMLInputElement | null>(null);
 const fileProgress = ref(0);
-
-const onPickFile = () => {
-  fileInput.value?.click();
-};
+const isFormSubmitted = ref(false);
 
 const onFileSelected = (event: any) => {
   image.value = event.target.files[0];
@@ -44,7 +39,7 @@ const onSubmit = handleSubmit((values: unknown) => {
   content.id = generateID();
   content.bandId = route.params.id as string;
   if (image.value) {
-    const uploadTask = addFiles(image.value);
+    const uploadTask = addImages(image.value);
     uploadTask.on('state_changed',
       (snapshot) => {
         fileProgress.value = +((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
@@ -55,76 +50,145 @@ const onSubmit = handleSubmit((values: unknown) => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           content.coverUrl = downloadURL;
-          // addAlbum(content);
+          addAlbum(content).then(() => {
+            isFormSubmitted.value = true;
+          });
         });
       },
     );
   }
 });
+
+const isModalVisible = ref(false);
+
+const toggleModalVisibility = () => {
+  isModalVisible.value = !isModalVisible.value;
+};
+
+const selectedTracks = ref<Array<any>>([]);
+const selectedTrack = ref<File>();
+const trackName = ref('');
+
+const onTrackUploadChange = (e: any) => {
+  selectedTrack.value = e.target.files[0];
+};
+
+const onTrackAddSubmit = () => {
+  if (trackName.value) {
+    selectedTracks.value?.push({
+      number: selectedTracks.value.length + 1,
+      name: trackName.value,
+      selectedTrack: selectedTrack.value,
+    });
+    toggleModalVisibility();
+    trackName.value = '';
+  }
+};
 </script>
 
 <template>
   <BaseCard>
-    <form class="grid w-full grid-cols-2 gap-4 p-5 border-2 rounded border-slate-100" @submit="onSubmit">
-      <BaseInput
-        v-model="name"
-        :error="errors.name"
-        label="Album name: "
-      />
-      <BaseInput
-        v-model="year"
-        :error="errors.year"
-        label="Album year: "
-      />
-      <BaseSelect
-        v-model="type"
-        label="Album type"
-        :data="[
-          {
-            value: 'single',
-            label: 'Single',
-          },
-          {
-            value: 'ep',
-            label: 'EP',
-          },
-          {
-            value: 'album',
-            label: 'Album',
-          }]"
-      />
-      <BaseSelect
-        v-model="genres"
-        label="Genres"
-        :data="[{ value: 'Bebra tigra', label: 'bebra Tigra' }]"
-      />
-      <input
-        ref="fileInput"
-        class="hidden"
-        accept=".jpg, .jpeg, .png"
-        type="file"
-        @change="onFileSelected"
-      >
-      <div class="flex items-center">
-        <BaseButton
-          type="button"
-          class="w-24 px-0 bg-blue-600"
-          @click="onPickFile"
-        >
-          Input image
-        </BaseButton>
-        <div v-if="fileProgress" class="w-24 h-6 ml-4 bg-gray-300 rounded-lg">
-          <div class="flex items-center justify-around h-full ease-in-out rounded-lg bg-cyan-500 text-gray-50 transition-width" :style="`width: ${fileProgress}%`">
-            <div class="px-2 w-fit">
-              {{ fileProgress }}%
-            </div>
-            <IconCheck v-if="fileProgress >= 100" />
-          </div>
+    <form class=" w-full p-5 border-2 rounded border-slate-100" @submit="onSubmit">
+      <h2 class="font-bold text-2xl mb-5">
+        Add new content:
+      </h2>
+      <div class="grid grid-cols-2 gap-4 ">
+        <BaseInput
+          v-model="name"
+          :disabled="isFormSubmitted"
+          :error="errors.name"
+          label="Content name: "
+        />
+        <BaseInput
+          v-model="year"
+          :disabled="isFormSubmitted"
+          :error="errors.year"
+          label="Content year: "
+        />
+        <BaseSelect
+          v-model="type"
+          :disabled="isFormSubmitted"
+          label="Content type: "
+          :data="[
+            {
+              value: 'single',
+              label: 'Single',
+            },
+            {
+              value: 'ep',
+              label: 'EP',
+            },
+            {
+              value: 'album',
+              label: 'Album',
+            }]"
+        />
+        <BaseSelect
+          v-model="genres"
+          :disabled="isFormSubmitted"
+          label="Genres"
+          :data="[{ value: 'Bebra tigra', label: 'bebra Tigra' }]"
+        />
+
+        <div class="flex items-center">
+          <InputFile
+            :file-progress="fileProgress"
+            :error="imageError?.message"
+            accept=".jpg, .jpeg, .png"
+            @change="onFileSelected"
+          />
         </div>
       </div>
-      <BaseButton class="w-24">
+      <BaseButton
+        v-if="!isFormSubmitted"
+        class="w-24 mt-10"
+      >
         Submit
       </BaseButton>
+      <div v-else class="text-green-600 mt-4">
+        Succesfully added
+      </div>
+    </form>
+    <form v-if="isFormSubmitted" @submit.prevent="onTrackAddSubmit">
+      <h2 class="font-bold text-2xl my-5">
+        Add new track:
+      </h2>
+      <div>
+        <span
+          v-for="track in selectedTracks"
+          :key="track.number"
+          class="block mb-2 rounded p-2 max-w-xs bg-gray-200"
+        >
+          {{ track.number }}. {{ track.name }}
+        </span>
+      </div>
+      <BaseButton
+        class="block mt-6"
+        type="button"
+        @click="toggleModalVisibility"
+      >
+        +
+      </BaseButton>
+      <BaseModal v-if="isModalVisible" @toggle="toggleModalVisibility">
+        <template #header>
+          <span class="font-bold text-2xl">Add new track</span>
+        </template>
+        <BaseInput v-model="trackName" label="Track name: " />
+        <InputFile
+          accept="audio/mp3"
+          @change="onTrackUploadChange"
+        />
+        <template #footer>
+          <div class="mx-auto">
+            <BaseButton class="bg-green-700 mr-4">
+              Add
+            </BaseButton>
+            <BaseButton class="bg-red-700" @click="toggleModalVisibility">
+              Cancel
+            </BaseButton>
+          </div>
+        </template>
+      </BaseModal>
     </form>
   </BaseCard>
 </template>

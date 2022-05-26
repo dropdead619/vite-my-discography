@@ -23,6 +23,7 @@ const emit = defineEmits(['update:modelValue']);
     <label class="font-semibold"> {{ $attrs.label }} </label>
     <select
       v-bind="$attrs"
+      :class="{ 'bg-gray-300': $attrs.disabled }"
       class="max-w-xs p-2 rounded border border-solid border-slate-300  dark:text-black"
       :value="modelValue"
       @input="emit('update:modelValue', ($event.target as HTMLSelectElement).value)"

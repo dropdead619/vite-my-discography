@@ -3,19 +3,19 @@ import type { Band } from '../config/types';
 import { useBandStore } from '../stores/band.store';
 
 const route = useRoute();
-const { bands } = useBandStore();
+const store = useBandStore();
 const state = reactive({
   band: {} as Band,
 });
 
 onMounted(() => {
-  state.band = bands.find(el => el.id.toString() === route.params.id) as Band;
+  state.band = store.bands.find(el => el.id.toString() === route.params.id) as Band;
 });
 </script>
 
 <template>
   <div class="flex">
-    <div class="h-screen px-3 py-8 text-center shadow-xl min-w-fit dark:text-slate-50 dark:shadow-gray-400 dark:shadow-md">
+    <div class="fixed h-screen px-3 py-8 text-center shadow-xl min-w-fit dark:text-slate-50 dark:shadow-gray-400 dark:shadow-md">
       <div>
         <img
           class="w-20 h-20 m-auto rounded-full"
@@ -35,6 +35,6 @@ onMounted(() => {
         Add new
       </BaseButton>
     </div>
-    <RouterView />
+    <RouterView class="ml-44 h-screen" />
   </div>
 </template>
