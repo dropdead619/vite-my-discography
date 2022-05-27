@@ -1,13 +1,21 @@
+import type { AudioPlaylistType } from 'ts-audio';
+import AudioPlaylist from 'ts-audio';
 import type { Track } from '@/config/types';
 
-export default function useMusicPlayer() {
+export default function useMusicPlayer(tracks: Track[]) {
   const isPlaying = ref(false);
+  // const isLooped = ref(false);
+  const volume = ref(1);
   const currentTrack = ref('');
-  const audio = ref<HTMLAudioElement>();
+  const audio = ref<AudioPlaylistType>(
+    AudioPlaylist({
+      files: tracks.map(el => el.trackUrl),
+      volume: volume.value,
+    }));
 
-  function play(track: Track) {
-    currentTrack.value = track.id;
-    audio.value = new Audio(track.trackUrl);
+  function play(trackId: string) {
+    currentTrack.value = trackId;
+
     audio.value.play();
     isPlaying.value = true;
   }

@@ -14,6 +14,7 @@ const props = defineProps({
 const { fetchTracks } = useBandStore();
 const state = reactive({
   tracks: {} as Track[],
+  currentTrack: {} as Track,
 });
 
 onMounted(() => {
@@ -22,9 +23,14 @@ onMounted(() => {
   });
 });
 
-const showByIndex: Ref<null | number> = ref(null);
+const { play, pause, isPlaying, currentTrack } = useMusicPlayer(state.tracks);
 
-const { play, pause, isPlaying, currentTrack } = useMusicPlayer();
+const onPlay = (track: Track) => {
+  state.currentTrack = track;
+  play();
+};
+
+const showByIndex: Ref<null | number> = ref(null);
 </script>
 
 <template>
@@ -50,7 +56,7 @@ const { play, pause, isPlaying, currentTrack } = useMusicPlayer();
             <IconPlay
               v-else
               class="w-full"
-              @click="play(track)"
+              @click="onPlay(track)"
             />
           </button>
           <span v-else>

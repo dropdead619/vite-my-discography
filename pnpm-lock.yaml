@@ -14,6 +14,7 @@ specifiers:
   postcss: ^8.4.14
   swiper: ^8.1.5
   tailwindcss: ^3.0.24
+  ts-audio: ^0.7.0
   typescript: ^4.5.4
   unplugin-auto-import: ^0.7.1
   unplugin-vue-components: ^0.19.3
@@ -28,6 +29,7 @@ dependencies:
   firebase: 9.8.1
   pinia: 2.0.14_7gwbvmtszsbbeay4sidijbp26i
   pinia-plugin-persistedstate: 1.6.0_pinia@2.0.14
+  ts-audio: 0.7.0
   vee-validate: 4.5.11_vue@3.2.36
   vue: 3.2.36
   vue-router: 4.0.15_vue@3.2.36
@@ -3598,6 +3600,11 @@ packages:
 
   /tr46/0.0.3:
     resolution: {integrity: sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o=}
+    dev: false
+
+  /ts-audio/0.7.0:
+    resolution: {integrity: sha512-auBMbyj1AOHpfzIpKENjARwdYFFo6IJh0oRa/ozt8zMHYdzBX5GGNBt3pApuDtf8M2wW2hN0zfFLiFBoqMMgBA==}
+    engines: {node: '>=10'}
     dev: false
 
   /tsconfig-paths/3.14.1:
