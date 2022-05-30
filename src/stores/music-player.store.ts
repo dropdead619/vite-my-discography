@@ -8,6 +8,7 @@ export const useMusicPlayer = defineStore('player', {
       isLooped: false,
       duration: 0,
       volume: 1,
+      seek: 0,
       currentTrack: {} as Track,
     }
   ),

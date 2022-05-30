@@ -7,5 +7,5 @@ export function getFileExtension(fileName: string) {
 }
 
 export function fromSecondsToMinutes(seconds: number) {
-  return `${Math.floor(seconds / 60)}:${seconds % 60 ? Math.floor(seconds % 60) : '00'}`;
+  return `${Math.floor(seconds / 60)}:${seconds % 60 ? (Math.floor(seconds % 60) < 10 ? `0${Math.floor(seconds % 60)}` : Math.floor(seconds % 60)) : '00'}`;
 }

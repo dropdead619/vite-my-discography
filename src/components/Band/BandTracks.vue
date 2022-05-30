@@ -13,7 +13,7 @@ const props = defineProps({
   },
 });
 
-const { init, play, pause, stop, duration } = useMusicPlayer();
+const { init, play, pause, stop } = useMusicPlayer();
 const musicPlayer = musicPlayerStore();
 
 const { fetchTracks } = useBandStore();
@@ -25,6 +25,7 @@ const state = reactive({
 onMounted(() => {
   fetchTracks(props.albumId).then((res) => {
     state.tracks = res as Track[];
+    state.tracks.sort((a, b) => a.number < b.number ? -1 : 1);
   });
 });
 

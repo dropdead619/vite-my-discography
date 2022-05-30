@@ -35,6 +35,6 @@ onMounted(() => {
         Add new
       </BaseButton>
     </div>
-    <RouterView class="ml-44 h-screen" />
+    <RouterView class="pb-28 ml-44" />
   </div>
 </template>

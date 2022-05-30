@@ -37,6 +37,10 @@ export default function useMusicPlayer() {
     return state.currentTrack?.duration(state.soundId);
   }
 
+  watchEffect(() => {
+    console.log(state.currentTrack?.seek(state.soundId));
+  });
+
   function play(track: Track) {
     if (!state.soundId)
       Howler.stop();
