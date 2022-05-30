@@ -24,7 +24,6 @@ onMounted(() => {
     navigation
     :slides-per-view="1"
     :space-between="50"
-    :loop="true"
   >
     <SwiperSlide
       v-for="content in state.content"

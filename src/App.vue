@@ -3,6 +3,7 @@
     <TheHeader />
     <RouterView class="mt-12" />
   </div>
+  <MusicPlayer />
 </template>
 
 <style>

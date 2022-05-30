@@ -96,15 +96,22 @@ const onTrackAddSubmit = () => {
               name: trackName.value,
               trackUrl: downloadURL,
               number: selectedTracks.value.length + 1,
+              duration: 0,
             };
-            addTrack(track);
-            toggleModalVisibility();
-            selectedTracks.value?.push({
-              number: track.number,
-              name: trackName.value,
-              selectedTrack: selectedTrack.value,
-            });
-            trackName.value = '';
+            const audioElement = document.createElement('audio');
+            audioElement.src = downloadURL;
+
+            audioElement.addEventListener('loadedmetadata', () => {
+              track.duration = audioElement.duration;
+              addTrack(track);
+              toggleModalVisibility();
+              selectedTracks.value?.push({
+                number: track.number,
+                name: trackName.value,
+                selectedTrack: selectedTrack.value,
+              });
+              trackName.value = '';
+            }, false);
           }
         });
       });

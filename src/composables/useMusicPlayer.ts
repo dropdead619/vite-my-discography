@@ -1,33 +1,59 @@
-import type { AudioPlaylistType } from 'ts-audio';
-import AudioPlaylist from 'ts-audio';
+import { Howl, Howler } from 'howler';
 import type { Track } from '@/config/types';
+import { useMusicPlayer as musicPlayerStore } from '@/stores/music-player.store';
 
-export default function useMusicPlayer(tracks: Track[]) {
-  const isPlaying = ref(false);
-  // const isLooped = ref(false);
-  const volume = ref(1);
-  const currentTrack = ref('');
-  const audio = ref<AudioPlaylistType>(
-    AudioPlaylist({
-      files: tracks.map(el => el.trackUrl),
-      volume: volume.value,
-    }));
-
-  function play(trackId: string) {
-    currentTrack.value = trackId;
-
-    audio.value.play();
-    isPlaying.value = true;
+export default function useMusicPlayer() {
+  interface musicPlayerType {
+    isLooped: boolean
+    volume: number
+    soundId?: number
+    currentTrack?: Howl
   }
 
-  // function nextTrack() {
+  const musicPlayer = musicPlayerStore();
 
-  // }
+  const state = reactive({
+    isLooped: false,
+    volume: 1,
+    soundId: undefined,
+    currentTrack: undefined,
+  } as musicPlayerType,
+  );
+
+  const stateAsRefs = toRefs(state);
+
+  function init(track: Track) {
+    musicPlayer.currentTrack = track;
+    state.currentTrack = new Howl({
+      src: track.trackUrl,
+      html5: true,
+      volume: state.volume,
+      loop: state.isLooped,
+      preload: true,
+    });
+  }
+
+  function duration() {
+    return state.currentTrack?.duration(state.soundId);
+  }
+
+  function play(track: Track) {
+    if (!state.soundId)
+      Howler.stop();
+    musicPlayer.currentTrack = track;
+    state.soundId = state.currentTrack?.play();
+    musicPlayer.isPlaying = true;
+  }
 
   function pause() {
-    audio.value?.pause();
-    isPlaying.value = false;
+    state.currentTrack?.pause(state.soundId);
+    musicPlayer.isPlaying = false;
   }
 
-  return { isPlaying, currentTrack, pause, play };
+  function stop() {
+    state.currentTrack?.stop(state.soundId);
+    musicPlayer.isPlaying = false;
+  }
+
+  return { ...stateAsRefs, duration, pause, play, stop, init };
 }

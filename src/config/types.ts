@@ -30,4 +30,5 @@ export interface Track {
   albumId: string
   trackUrl: string
   name: string
+  duration: number
 }

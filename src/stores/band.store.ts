@@ -5,7 +5,7 @@ import type { Band, BandContent, Track } from '../config/types';
 import { bandsRef, contentRef, db, storage, tracksRef } from '../firebaseApp';
 import { generateID, getFileExtension } from '@/config/utilities';
 
-export const useBandStore = defineStore('app', {
+export const useBandStore = defineStore('bands', {
   state: () => (
     {
       bands: [] as Band[],
