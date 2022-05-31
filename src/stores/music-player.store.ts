@@ -35,8 +35,10 @@ export const useMusicPlayer = defineStore('player', () => {
   }, 1000);
 
   function play() {
-    if (!soundId)
+    if (!soundId) {
       Howler.stop();
+      seekPosition.value = 0;
+    }
     soundId.value = howlTrackInstance.value?.play();
     isEnded.value = false;
   }
@@ -52,6 +54,7 @@ export const useMusicPlayer = defineStore('player', () => {
       init(track);
     else
       init(bandStore.currentTracks[0]);
+
     play();
   }
 
@@ -67,8 +70,10 @@ export const useMusicPlayer = defineStore('player', () => {
   }
 
   watch(() => seekPosition.value, (val) => {
-    if (val >= (currentTrack.value?.duration as number) - 0.8)
+    if (val >= (currentTrack.value?.duration as number) - 0.8) {
       isEnded.value = true;
+      seekPosition.value = 0;
+    }
   });
 
   watch(() => isEnded.value, (val) => {
