@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { Ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import type { Track } from '@/config/types';
 import { useBandStore } from '@/stores/band.store';
-import useMusicPlayer from '@/composables/useMusicPlayer';
 import { fromSecondsToMinutes } from '@/config/utilities';
-import { useMusicPlayer as musicPlayerStore } from '@/stores/music-player.store';
+import { useMusicPlayer } from '@/stores/music-player.store';
 
 const props = defineProps({
   albumId: {
@@ -13,8 +13,9 @@ const props = defineProps({
   },
 });
 
-const { init, play, pause, stop } = useMusicPlayer();
-const musicPlayer = musicPlayerStore();
+const musicPlayer = useMusicPlayer();
+
+const { currentTrack, isPlaying } = storeToRefs(musicPlayer);
 
 const { fetchTracks } = useBandStore();
 
@@ -30,12 +31,12 @@ onMounted(() => {
 });
 
 const onPlay = (track: Track) => {
-  if (musicPlayer.currentTrack.id !== track.id) {
-    stop();
-    init(track);
+  if (currentTrack?.value?.id !== track.id) {
+    musicPlayer.stop();
+    musicPlayer.init(track);
   }
 
-  play(track);
+  musicPlayer.play();
 };
 
 const showByIndex: Ref<null | number> = ref(null);
@@ -53,13 +54,13 @@ const showByIndex: Ref<null | number> = ref(null);
       <div class="flex items-center w-full">
         <div class="flex items-center w-4 mr-2 text-sm leading-7 text-center cursor-pointer text-slate-600">
           <button
-            v-if="showByIndex === index || musicPlayer.isPlaying && musicPlayer.currentTrack.id === track.id"
+            v-if="showByIndex === index || isPlaying && currentTrack?.id === track.id"
             class="w-4 h-4"
           >
             <IconPause
-              v-if=" musicPlayer.isPlaying && musicPlayer.currentTrack.id === track.id"
+              v-if="isPlaying && currentTrack?.id === track.id"
               class="w-full"
-              @click="pause()"
+              @click="musicPlayer.pause()"
             />
             <IconPlay
               v-else

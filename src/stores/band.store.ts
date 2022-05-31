@@ -9,6 +9,7 @@ export const useBandStore = defineStore('bands', {
   state: () => (
     {
       bands: [] as Band[],
+      currentTracks: [] as Track[],
     }
   ),
   actions: {
@@ -31,6 +32,7 @@ export const useBandStore = defineStore('bands', {
       const tracksQuery = query(tracksRef, where('albumId', '==', albumId));
       const tracksSnap = await getDocs(tracksQuery);
       const tracksData = tracksSnap.docs.map(el => ({ ...el.data(), id: el.id }));
+      this.currentTracks = tracksData as Track[];
       return tracksData;
     },
     addAlbum(contentData: BandContent) {

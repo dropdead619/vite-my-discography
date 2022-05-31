@@ -16,7 +16,7 @@ export default defineConfig({
         'vue',
         'vue-router',
         {
-          '@vueuse/core': ['useDark', 'useToggle'],
+          '@vueuse/core': ['useDark', 'useToggle', 'useIntervalFn'],
         },
       ],
       dts: 'src/auto-imports.d.ts',
