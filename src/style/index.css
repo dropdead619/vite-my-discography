@@ -39,7 +39,7 @@
   }
 
   input[type="range"] {
-    background-size: 70% 100%;
+    background-size: 0% 100%;
     background-repeat: no-repeat;
   }
 

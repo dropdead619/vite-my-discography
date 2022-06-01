@@ -4,14 +4,18 @@ import { useMusicPlayer } from '@/stores/music-player.store';
 import { fromSecondsToMinutes } from '@/config/utilities';
 
 const musicPlayer = useMusicPlayer();
-const { currentTrack, isPlaying, seekPosition } = storeToRefs(musicPlayer);
+const { currentTrack, isPlaying, seekPosition, volumePosition } = storeToRefs(musicPlayer);
 
 const inputBackgroundSize = computed(() => {
   return `background-size: ${seekPosition.value * 100 / (currentTrack.value?.duration as number)}% 100%`;
 });
 
-const onChange = (e: Event) => {
+const onSeekChange = (e: Event) => {
   musicPlayer.seek(+(e.target as HTMLInputElement).value);
+};
+
+const onVolumeChange = (e: Event) => {
+  musicPlayer.volume(+(e.target as HTMLInputElement).value / 100);
 };
 </script>
 
@@ -47,17 +51,36 @@ const onChange = (e: Event) => {
           <input
             v-model="seekPosition"
             :style="inputBackgroundSize"
-            class="w-full h-1 p-0 bg-gray-300 appearance-none bg-gradient-to-r from-orange-500 to-red-500 bg- focus:outline-none focus:ring-0 focus:shadow-none"
+            class="w-full h-1 p-0 bg-gray-300 appearance-none bg-gradient-to-r from-orange-500 to-red-500 focus:outline-none focus:ring-0 focus:shadow-none"
             type="range"
             min="0"
             :max="currentTrack?.duration"
-            @change="onChange"
+            @change="onSeekChange"
           >
           <div class="ml-2 text-xs">
             {{ fromSecondsToMinutes(currentTrack?.duration as number) }}
           </div>
         </div>
       </div>
+      <IconSound
+        v-if="volumePosition > 0"
+        class="mx-2 cursor-pointer"
+        @click="musicPlayer.mute()"
+      />
+      <IconNoSound
+        v-else
+        class="mx-2 cursor-pointer"
+        @click="musicPlayer.unmute()"
+      />
+      <input
+        :value="volumePosition * 100"
+        :style="inputBackgroundSize"
+        class="w-12 h-1 p-0 bg-gray-300 appearance-none bg-gradient-to-r from-gray-500 to-black-500 focus:outline-none focus:ring-0 focus:shadow-none"
+        type="range"
+        :min="0"
+        :max="100"
+        @change="onVolumeChange"
+      >
     </div>
   </div>
 </template>

@@ -7,7 +7,7 @@ export const useMusicPlayer = defineStore('player', () => {
   const seekPosition = ref(0);
 
   const isLooped = ref(false);
-  const volume = ref(1);
+  const volumePosition = ref(1);
   const soundId = ref<number>();
   const howlTrackInstance = ref<Howl>();
 
@@ -24,7 +24,7 @@ export const useMusicPlayer = defineStore('player', () => {
     howlTrackInstance.value = new Howl({
       src: track.trackUrl,
       html5: true,
-      volume: volume.value,
+      volume: +volumePosition.value,
       loop: isLooped.value,
       preload: true,
     });
@@ -102,5 +102,25 @@ export const useMusicPlayer = defineStore('player', () => {
     }
   }
 
-  return { currentTrack, seekPosition, isEnded, isPlaying, isLooped, init, seek, play, pause, stop, next, prev };
+  function mute() {
+    volumePosition.value = 0;
+    volume(volumePosition.value);
+  }
+
+  function unmute() {
+    volumePosition.value = 1;
+    volume(volumePosition.value);
+  }
+
+  function volume(position?: number) {
+    if (position || position === 0) {
+      volumePosition.value = position;
+      howlTrackInstance.value?.volume(position);
+      return position;
+    }
+    volumePosition.value = 0;
+    return howlTrackInstance.value?.volume();
+  }
+
+  return { currentTrack, volumePosition, seekPosition, isEnded, isPlaying, isLooped, volume, mute, unmute, init, seek, play, pause, stop, next, prev };
 });
