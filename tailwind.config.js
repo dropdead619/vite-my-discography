@@ -11,7 +11,10 @@ module.exports = {
 
     extend: {
       backgroundColor: {
-        'theme-dark': '#1A1A1A',
+        'theme-dark-4': '#1A1A1A',
+        'theme-dark-3': '#212121',
+        'theme-dark-2': '#252525',
+        'theme-dark-1': '#272727',
       },
       transitionProperty: {
         width: 'width',

@@ -1,7 +1,7 @@
 <template>
-  <div class="h-screen bg-white dark:bg-theme-dark">
+  <div>
     <TheHeader />
-    <RouterView class="mt-12" />
+    <RouterView />
   </div>
   <MusicPlayer />
 </template>
@@ -10,6 +10,5 @@
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
 }
 </style>

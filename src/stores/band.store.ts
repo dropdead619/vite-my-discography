@@ -28,6 +28,12 @@ export const useBandStore = defineStore('bands', {
       const contentData = contentSnap.docs.map(el => ({ ...el.data(), id: el.id }));
       return contentData;
     },
+    async fetchAlbum(albumId: string) {
+      const contentQuery = query(contentRef, where('id', '==', albumId));
+      const contentSnap = await getDocs(contentQuery);
+      const contentData = contentSnap.docs.map(el => ({ ...el.data(), id: el.id }));
+      return contentData;
+    },
     async fetchTracks(albumId: string) {
       const tracksQuery = query(tracksRef, where('albumId', '==', albumId));
       const tracksSnap = await getDocs(tracksQuery);

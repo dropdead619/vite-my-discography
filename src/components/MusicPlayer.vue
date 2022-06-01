@@ -16,37 +16,38 @@ const onChange = (e: Event) => {
 </script>
 
 <template>
-  <div v-if="currentTrack" class="flex items-center fixed z-50 bottom-0 w-full border-gray-400 border h-16 bg-gray-200 text-gray-900">
-    <div class="flex items-center max-w-4xl px-4 w-full m-auto h-4/5 bg-gray-100 rounded-2xl ">
-      <div class="pr-6 w-60">
-        <span class="text-xs pr-1">{{ currentTrack?.number }}.</span> {{ currentTrack?.name }}
+  <div v-if="currentTrack" class="bottom-0 flex items-center invisible w-full h-16 text-gray-900 bg-gray-200 border border-gray-400" />
+
+  <div v-if="currentTrack" class="fixed bottom-0 z-50 flex items-center w-full h-16 bg-gray-200 border-t border-gray-400 dark:bg-theme-dark-4">
+    <div class="flex items-center w-full max-w-4xl px-4 m-auto bg-gray-100 dark:bg-theme-dark-1 h-4/5 rounded-2xl ">
+      <div class="h-6 pr-6 truncate cursor-default w-60">
+        {{ currentTrack?.name }}
       </div>
 
-      <div class="flex flex-col  max-w-lg w-full">
-        <div class="flex justify-center items-end">
+      <div class="flex flex-col w-full max-w-lg">
+        <div class="flex items-end justify-center">
           <IconPrevious class="h-4 cursor-pointer" @click="musicPlayer.prev()" />
           <IconPause
             v-if="isPlaying"
-            class="cursor-pointer w-8 h-6 mx-1 rounded-full"
+            class="w-8 h-6 mx-1 rounded-full cursor-pointer"
             @click="musicPlayer.pause()"
           />
           <IconPlay
             v-else
-            class="cursor-pointer w-8 h-6 mx-1 rounded-full"
+            class="w-8 h-6 mx-1 rounded-full cursor-pointer"
             @click="musicPlayer.play()"
           />
 
-          <IconNext class="cursor-pointer h-4" @click="musicPlayer.next()" />
+          <IconNext class="h-4 cursor-pointer" @click="musicPlayer.next()" />
         </div>
         <div class="flex items-center">
-          <div class="w-8 text-xs mr-2">
+          <div class="w-8 mr-2 text-xs">
             {{ fromSecondsToMinutes(seekPosition) }}
           </div>
           <input
             v-model="seekPosition"
             :style="inputBackgroundSize"
-            class="appearance-none w-full
-          h-1 p-0 bg-gray-300 bg-gradient-to-r from-orange-500 to-red-500 bg- focus:outline-none focus:ring-0 focus:shadow-none"
+            class="w-full h-1 p-0 bg-gray-300 appearance-none bg-gradient-to-r from-orange-500 to-red-500 bg- focus:outline-none focus:ring-0 focus:shadow-none"
             type="range"
             min="0"
             :max="currentTrack?.duration"

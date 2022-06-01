@@ -2,7 +2,7 @@
 import { useField, useForm } from 'vee-validate';
 import type { StorageError } from 'firebase/storage';
 import { getDownloadURL } from 'firebase/storage';
-import { useBandStore } from '../stores/band.store';
+import { useBandStore } from '../../stores/band.store';
 import type { BandContent, ReleaseType, Track } from '@/config/types';
 import { generateID } from '@/config/utilities';
 import { anything, required } from '@/config/validations';
@@ -190,7 +190,7 @@ const onTrackAddSubmit = () => {
         <span
           v-for="track in selectedTracks"
           :key="track.number"
-          class="block max-w-xs p-2 mb-2 bg-gray-200 rounded"
+          class="block max-w-xs p-2 mb-2 text-black bg-gray-200 rounded"
         >
           {{ track.number }}. {{ track.name }}
         </span>

@@ -1,21 +1,33 @@
 <script setup lang="ts">
-import BandItems from './BandItems.vue';
+import ContentCard from './ContentCard.vue';
 import { useBandStore } from '@/stores/band.store';
 
 const bandsStore = useBandStore();
 
+const router = useRouter();
+
+function redirectToBand(id: string) {
+  router.push({
+    name: 'BandsView', params: { id },
+  });
+}
 bandsStore.fetchBands();
 </script>
 
 <template>
-  <ul class="flex flex-wrap justify-around flex-col lg:flex-row">
-    <li v-for="band in bandsStore.bands" :key="band.id">
-      <BandItems
+  <ul class="flex flex-col flex-wrap justify-around mt-24 md:flex-row">
+    <li
+      v-for="band in bandsStore.bands"
+      :key="band.id"
+      class="mb-12 md:mb-0"
+    >
+      <ContentCard
         :id="band.id"
         :name="band.name"
         :genres="band.genre"
         :description="band.description"
         :cover-url="band.coverUrl"
+        @click="redirectToBand(band.id)"
       />
     </li>
   </ul>

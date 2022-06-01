@@ -27,6 +27,10 @@
   html {
     font-family: 'Proxima Nova', system-ui, sans-serif;
   }
+
+  body {
+    @apply dark:bg-theme-dark-4 dark:text-white
+  }
 }
 
 @layer components {

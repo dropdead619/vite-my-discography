@@ -5,7 +5,6 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    BandItems: typeof import('./src/components/Band/BandItems.vue')['default']
     BandList: typeof import('./src/components/Band/BandList.vue')['default']
     BandTracks: typeof import('./src/components/Band/BandTracks.vue')['default']
     BaseButton: typeof import('./src/components/UI/BaseButton.vue')['default']
@@ -14,11 +13,14 @@ declare module '@vue/runtime-core' {
     BaseInput: typeof import('./src/components/UI/BaseInput.vue')['default']
     BaseModal: typeof import('./src/components/UI/BaseModal.vue')['default']
     BaseSelect: typeof import('./src/components/UI/BaseSelect.vue')['default']
+    ContentCard: typeof import('./src/components/Band/ContentCard.vue')['default']
+    ContentList: typeof import('./src/components/Band/ContentList.vue')['default']
     IconCheck: typeof import('./src/components/Icons/IconCheck.vue')['default']
     IconMoon: typeof import('./src/components/Icons/IconMoon.vue')['default']
     IconNext: typeof import('./src/components/Icons/IconNext.vue')['default']
     IconPause: typeof import('./src/components/Icons/IconPause.vue')['default']
     IconPlay: typeof import('./src/components/Icons/IconPlay.vue')['default']
+    IconPlus: typeof import('./src/components/Icons/IconPlus.vue')['default']
     IconPrevious: typeof import('./src/components/Icons/IconPrevious.vue')['default']
     IconSun: typeof import('./src/components/Icons/IconSun.vue')['default']
     InputFile: typeof import('./src/components/form/InputFile.vue')['default']
