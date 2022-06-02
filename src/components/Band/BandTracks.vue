@@ -48,13 +48,13 @@ const showByIndex: Ref<null | number> = ref(null);
       v-for="(track, index) in state.tracks"
       :key="track.id"
       class="flex justify-between px-4 py-2 my-2 text-black rounded-full cursor-default bg-slate-200"
-      @mouseover="showByIndex = index"
       @mouseout="showByIndex = null"
+      @mouseover="showByIndex = index"
     >
       <div class="flex items-center w-full">
         <div class="flex items-center w-4 mr-2 text-sm leading-7 text-center cursor-pointer text-slate-600">
           <button
-            v-if="showByIndex === index || isPlaying && currentTrack?.id === track.id"
+            v-if="showByIndex === index"
             class="w-4 h-4"
           >
             <IconPause
@@ -66,9 +66,14 @@ const showByIndex: Ref<null | number> = ref(null);
               v-else
               class="w-full"
               @click="onPlay(track)"
+              @mouseover="showByIndex = index"
             />
           </button>
-          <span v-else>
+
+          <span
+            v-else
+            class="w-full text-center"
+          >
             {{ track.number }}.
           </span>
         </div>

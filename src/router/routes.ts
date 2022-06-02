@@ -12,7 +12,7 @@ export const routes: RouteRecordRaw[] = [
     name: 'Bands',
     component: () => import('../pages/BandsMain.vue'),
     meta: {
-      title: 'My Bands',
+      title: 'Bands',
     },
   },
 
