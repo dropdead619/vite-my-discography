@@ -22,7 +22,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex flex-col w-full">
+  <div v-if="!$attrs.disabled" class="flex flex-col w-full">
     <label class="font-semibold"> {{ props.label }} </label>
     <div class="flex items-center">
       <input

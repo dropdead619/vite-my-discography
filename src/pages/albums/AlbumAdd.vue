@@ -30,13 +30,16 @@ const content = ref<BandContent>();
 
 const image = ref<File | null>(null);
 const imageError = ref<StorageError | null>(null);
-const fileProgress = ref(0);
+const fileImageProgress = ref(0);
+const fileAudioProgress = ref(0);
 const isFormSubmitted = ref(false);
+const isSubmitting = ref(false);
 
 const onFileSelected = (event: any) => {
   image.value = event.target.files[0];
 };
 const onSubmit = handleSubmit((values: unknown) => {
+  isSubmitting.value = true;
   content.value = values as BandContent;
   content.value.id = generateID();
   content.value.bandId = route.params.id as string;
@@ -44,7 +47,7 @@ const onSubmit = handleSubmit((values: unknown) => {
     const uploadTask = addImages(image.value);
     uploadTask.on('state_changed',
       (snapshot) => {
-        fileProgress.value = +((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
+        fileImageProgress.value = +((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
       },
       (error) => {
         imageError.value = error;
@@ -55,6 +58,7 @@ const onSubmit = handleSubmit((values: unknown) => {
             content.value.coverUrl = downloadURL;
             addAlbum(content.value).then(() => {
               isFormSubmitted.value = true;
+              isSubmitting.value = false;
             });
           }
         });
@@ -82,7 +86,7 @@ const onTrackAddSubmit = () => {
     const uploadTrack = addTrackFile(selectedTrack.value);
     uploadTrack.on('state_changed',
       (snapshot) => {
-        fileProgress.value = +((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
+        fileAudioProgress.value = +((snapshot.bytesTransferred / snapshot.totalBytes) * 100).toFixed(0);
       },
       (error) => {
         imageError.value = error;
@@ -128,19 +132,19 @@ const onTrackAddSubmit = () => {
       <div class="grid grid-cols-2 gap-4 ">
         <BaseInput
           v-model="name"
-          :disabled="isFormSubmitted"
+          :disabled="isFormSubmitted || isSubmitting"
           :error="errors.name"
           label="Content name: "
         />
         <BaseInput
           v-model="year"
-          :disabled="isFormSubmitted"
+          :disabled="isFormSubmitted || isSubmitting"
           :error="errors.year"
           label="Content year: "
         />
         <BaseSelect
           v-model="type"
-          :disabled="isFormSubmitted"
+          :disabled="isFormSubmitted || isSubmitting"
           label="Content type: "
           :data="[
             {
@@ -158,15 +162,17 @@ const onTrackAddSubmit = () => {
         />
         <BaseSelect
           v-model="genres"
-          :disabled="isFormSubmitted"
+          :disabled="isFormSubmitted || isSubmitting"
           label="Genres"
           :data="[{ value: 'Bebra tigra', label: 'bebra Tigra' }]"
         />
 
         <div class="flex items-center">
           <InputFile
-            :file-progress="fileProgress"
+            :file-progress="fileImageProgress"
+            :disabled="isFormSubmitted || isSubmitting"
             :error="imageError?.message"
+            label="Content image:"
             accept=".jpg, .jpeg, .png"
             @change="onFileSelected"
           />
@@ -174,6 +180,7 @@ const onTrackAddSubmit = () => {
       </div>
       <BaseButton
         v-if="!isFormSubmitted"
+        :disabled="isSubmitting"
         class="w-24 mt-10 bg-primary"
       >
         Submit
@@ -208,7 +215,7 @@ const onTrackAddSubmit = () => {
         </template>
         <BaseInput v-model="trackName" label="Track name: " />
         <InputFile
-          :file-progress="fileProgress"
+          :file-progress="fileAudioProgress"
           accept="audio/mp3"
           @change="onTrackUploadChange"
         />

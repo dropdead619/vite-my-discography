@@ -15,6 +15,7 @@ declare module '@vue/runtime-core' {
     BaseSelect: typeof import('./src/components/UI/BaseSelect.vue')['default']
     ContentCard: typeof import('./src/components/Band/ContentCard.vue')['default']
     ContentList: typeof import('./src/components/Band/ContentList.vue')['default']
+    IconBack: typeof import('./src/components/Icons/IconBack.vue')['default']
     IconCheck: typeof import('./src/components/Icons/IconCheck.vue')['default']
     IconMoon: typeof import('./src/components/Icons/IconMoon.vue')['default']
     IconNext: typeof import('./src/components/Icons/IconNext.vue')['default']
