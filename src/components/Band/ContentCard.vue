@@ -19,7 +19,7 @@ const props = defineProps({
     default: '',
   },
   year: {
-    type: String,
+    type: Number,
     required: false,
     default: null,
   },

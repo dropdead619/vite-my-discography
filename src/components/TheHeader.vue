@@ -13,7 +13,7 @@ const toggleDark = useToggle(isDark);
       <RouterLink :to="{ name: 'Bands' }" class="flex font-bold">
         <img
           class="w-8 mr-2"
-          src="../assets/logo.png"
+          src="../assets/logo.webp"
           alt="logo"
         >
         w4stedfy

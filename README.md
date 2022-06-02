@@ -1,16 +1,33 @@
-# Vue 3 + TypeScript + Vite
+# Check out this app here - [w4stedfy music app](https://w4stedfy.web.app/)
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Made with:
 
-## Recommended IDE Setup
+- ⚡ [Vue 3](https://github.com/vuejs/vue-next), [Vite 2](https://github.com/vitejs/vite), [pnpm](https://pnpm.io)
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+- 🍍 State Management via [Pinia](https://pinia.vuejs.org/)
 
-## Type Support For `.vue` Imports in TS
+- 💪 TypeScript
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's Take Over mode by following these steps:
+- ✨ [Tailwind](https://tailwindcss.com/) highly customizable styles 
 
-1. Run `Extensions: Show Built-in Extensions` from VS Code's command palette, look for `TypeScript and JavaScript Language Features`, then right click and select `Disable (Workspace)`. By default, Take Over mode will enable itself if the default TypeScript extension is disabled.
-2. Reload the VS Code window by running `Developer: Reload Window` from the command palette.
+- 🔊 [Howler.js](https://howlerjs.com/) modern audio library
 
-You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
+- 👁 Strong [Eslint](https://eslint.org) support + autofix
+
+# install dependencies (if you don't have pnpm installed, run: npm install -g pnpm)
+$ pnpm i
+
+# Compiles and hot-reloads for development
+$ pnpm dev
+
+# Lint files with --fix
+$ pnpm lint-fix
+
+# Lint and typecheck files
+$ pnpm lint
+$ pnpm typecheck
+
+# Compiles and minifies for production and launch server
+$ pnpm build
+$ pnpm preview
+```
