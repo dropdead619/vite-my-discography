@@ -24,7 +24,7 @@ onMounted(() => {
     :style="bg"
   >
     <div class="flex flex-col justify-end w-full bg-cover bg-opacity-40 bg-theme-dark-4" style="height: 28rem">
-      <h1 class="pb-2 pl-10 font-semibold text-7xl md:text-9xl">
+      <h1 class="pb-2 pl-10 text-4xl font-semibold sm:text-7xl md:text-9xl">
         {{ currentBand?.name }}
       </h1>
       <div class="flex pb-4 pl-12">

@@ -51,7 +51,7 @@ const imageSize = computed(() => {
     return 'w-80 h-80';
 
   else if (props.cardSize === 'medium')
-    return 'w-58 h-58';
+    return 'w-64 h-64';
 
   else if (props.cardSize === 'small')
     return 'w-48 h-48';

@@ -77,7 +77,7 @@ const showByIndex: Ref<null | number> = ref(null);
             {{ track.number }}.
           </span>
         </div>
-        <div class="text-lg font-semibold">
+        <div class="text-xs font-semibold truncate sm:text-lg">
           {{ track.name }}
         </div>
         <div class="ml-auto mr-0">

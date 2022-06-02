@@ -9,10 +9,6 @@ const props = defineProps<{
 const route = useRoute();
 const router = useRouter();
 
-const breakpoints = useBreakpoints(breakpointsTailwind);
-
-const smAndLower = breakpoints.smaller('sm');
-
 const { fetchAlbums } = useBandStore();
 
 const state = reactive({
@@ -47,14 +43,14 @@ onMounted(() => {
   <div v-if="state.content.length > 0" class="p-4 pl-2 text-lg font-semibold">
     {{ releaseType }}
   </div>
-  <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 w-fit">
+  <div class="grid grid-cols-1 gap-4 mx-auto sm:mx-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 w-fit">
     <div
       v-for="content in state.content"
       :key="content.id"
     >
       <ContentCard
         :id="content.id"
-        :card-size="smAndLower ? 'smallest' : 'small'"
+        card-size="small"
         :year="content.year"
         :name="content.name"
         :cover-url="content.coverUrl"

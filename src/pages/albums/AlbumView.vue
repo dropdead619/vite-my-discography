@@ -6,6 +6,10 @@ const route = useRoute();
 
 const currentAlbum = ref<BandContent>();
 
+const breakpoints = useBreakpoints(breakpointsTailwind);
+
+const smAndSmaller = breakpoints.smaller('sm');
+
 const { fetchAlbum } = useBandStore();
 onMounted(() => {
   fetchAlbum(route.params.id as string).then((res) => {
@@ -15,10 +19,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-if="currentAlbum" class="py-10">
+  <div v-if="currentAlbum" class="px-6 py-10">
     <ContentCard
       :id="currentAlbum.id"
-      image-size="medium"
+      :card-size="smAndSmaller ? 'small' : 'large' "
       :name="currentAlbum.name"
       :year="currentAlbum.year"
       :cover-url="currentAlbum.coverUrl"

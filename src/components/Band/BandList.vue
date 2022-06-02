@@ -4,6 +4,10 @@ import { useBandStore } from '@/stores/band.store';
 
 const bandsStore = useBandStore();
 
+const breakpoints = useBreakpoints(breakpointsTailwind);
+
+const smAndSmaller = breakpoints.smaller('sm');
+
 const router = useRouter();
 
 function redirectToBand(id: string) {
@@ -15,7 +19,7 @@ bandsStore.fetchBands();
 </script>
 
 <template>
-  <ul class="flex flex-col flex-wrap justify-around mt-24 md:flex-row">
+  <ul class="flex flex-col flex-wrap justify-around px-8 mt-24 md:flex-row">
     <li
       v-for="band in bandsStore.bands"
       :key="band.id"
@@ -24,6 +28,7 @@ bandsStore.fetchBands();
       <ContentCard
         :id="band.id"
         :name="band.name"
+        :card-size="smAndSmaller ? 'small' : 'large' "
         :genres="band.genre"
         :description="band.description"
         :cover-url="band.coverUrl"

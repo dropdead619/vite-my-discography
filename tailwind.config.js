@@ -11,7 +11,7 @@ module.exports = {
 
     extend: {
       screens: {
-        mobile: '400px',
+        'ultra-sm': '364px',
       },
       backgroundColor: {
         'theme-dark-4': '#1A1A1A',
