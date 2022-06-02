@@ -38,6 +38,10 @@
     height: calc(100% - 2rem);
   }
 
+  .bg-primary {
+    @apply bg-gradient-to-r from-orange-500 to-red-500 text-white
+  }
+
   input[type="range"] {
     background-size: 0% 100%;
     background-repeat: no-repeat;

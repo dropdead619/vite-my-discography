@@ -25,7 +25,7 @@ const onVolumeChange = (e: Event) => {
   <div v-if="currentTrack" class="fixed bottom-0 z-50 flex items-center w-full h-16 bg-gray-200 border-t border-gray-400 dark:bg-theme-dark-4">
     <div class="flex items-center w-full max-w-4xl px-4 m-auto bg-gray-100 dark:bg-theme-dark-1 h-4/5 rounded-2xl ">
       <div class="h-6 pr-6 truncate cursor-default w-60">
-        {{ currentTrack?.name }}
+        {{ currentTrack.name }}
       </div>
 
       <div class="flex flex-col w-full max-w-lg">
@@ -51,14 +51,14 @@ const onVolumeChange = (e: Event) => {
           <input
             v-model="seekPosition"
             :style="inputBackgroundSize"
-            class="w-full h-1 p-0 bg-gray-300 appearance-none bg-gradient-to-r from-orange-500 to-red-500 focus:outline-none focus:ring-0 focus:shadow-none"
+            class="w-full h-1 p-0 bg-gray-300 bg-primary appearance-none  focus:outline-none focus:ring-0 focus:shadow-none"
             type="range"
             min="0"
-            :max="currentTrack?.duration"
+            :max="currentTrack.duration"
             @change="onSeekChange"
           >
           <div class="ml-2 text-xs">
-            {{ fromSecondsToMinutes(currentTrack?.duration as number) }}
+            {{ fromSecondsToMinutes(currentTrack.duration as number) }}
           </div>
         </div>
       </div>

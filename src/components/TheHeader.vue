@@ -16,7 +16,7 @@ const toggleDark = useToggle(isDark);
         w4stedfy
       </RouterLink>
     </div>
-    <BaseButton class="py-1" @click="toggleDark()">
+    <BaseButton class="py-1 bg-primary" @click="toggleDark()">
       <IconMoon v-if="isDark" />
       <IconSun v-else />
     </BaseButton>

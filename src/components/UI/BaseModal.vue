@@ -10,9 +10,9 @@ const toggleModal = () => {
 
 <template>
   <div class="flex items-center pb-60 justify-center bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40" @click.self="toggleModal">
-    <div class="relative p-4 w-full max-w-2xl">
+    <div class="relative  p-4 w-full max-w-2xl">
       <!-- Modal content -->
-      <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <div class="relative bg-white rounded-lg shadow dark:bg-theme-dark-2">
         <!-- Modal header -->
         <div class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
           <slot name="header" />

@@ -174,7 +174,7 @@ const onTrackAddSubmit = () => {
       </div>
       <BaseButton
         v-if="!isFormSubmitted"
-        class="w-24 mt-10"
+        class="w-24 mt-10 bg-primary"
       >
         Submit
       </BaseButton>
@@ -214,10 +214,10 @@ const onTrackAddSubmit = () => {
         />
         <template #footer>
           <div class="mx-auto">
-            <BaseButton class="mr-4 bg-green-700">
+            <BaseButton class="mr-4 text-white bg-primary">
               Add
             </BaseButton>
-            <BaseButton class="bg-red-700" @click="toggleModalVisibility">
+            <BaseButton @click="toggleModalVisibility">
               Cancel
             </BaseButton>
           </div>

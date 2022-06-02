@@ -40,6 +40,7 @@ export const useMusicPlayer = defineStore('player', () => {
       seekPosition.value = 0;
     }
     soundId.value = howlTrackInstance.value?.play();
+    seekPosition.value = howlTrackInstance.value?.seek(soundId.value) as number;
     isEnded.value = false;
   }
 
