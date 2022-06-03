@@ -7,9 +7,6 @@ useMeta({
   description: {
     content: 'Web music player, to share my music with others',
   },
-  keywords: {
-    content: 'w4stedfy, w4stedlives',
-  },
 });
 </script>
 

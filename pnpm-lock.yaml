@@ -21,7 +21,7 @@ specifiers:
   vee-validate: ^4.5.11
   vite: ^2.9.5
   vue: ^3.2.25
-  vue-meta: ^3.0.0-alpha.7
+  vue-meta: ^3.0.0-alpha.8
   vue-router: ^4.0.14
   vue-tsc: ^0.34.7
 
