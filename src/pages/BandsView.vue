@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
+import { useMeta } from 'vue-meta';
 import type { Band } from '../config/types';
 import { useBandStore } from '../stores/band.store';
 import { ReleaseType } from '@/config/types';
@@ -15,6 +16,9 @@ const bg = computed(() => {
 
 onMounted(() => {
   currentBand.value = bands.value.find(el => el.id === route.params.id);
+  useMeta({
+    title: currentBand.value?.name,
+  });
 });
 </script>
 

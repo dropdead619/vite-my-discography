@@ -13,7 +13,7 @@ useMeta({
 <template>
   <Metainfo>
     <template #title="{ content }">
-      {{ content ? `${content}` : DEFAULT_TITLE }}
+      {{ content ? `${content} - ${DEFAULT_TITLE}` : DEFAULT_TITLE }}
     </template>
   </Metainfo>
   <div>

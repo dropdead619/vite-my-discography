@@ -7,7 +7,6 @@ import App from './App.vue';
 import './style/index.css';
 
 import router from './router';
-import './router/before-each-guard';
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);

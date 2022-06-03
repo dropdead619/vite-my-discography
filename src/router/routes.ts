@@ -11,9 +11,6 @@ export const routes: RouteRecordRaw[] = [
     path: '/bands',
     name: 'Bands',
     component: () => import('../pages/BandsMain.vue'),
-    meta: {
-      title: 'Bands',
-    },
   },
 
   {
@@ -24,9 +21,6 @@ export const routes: RouteRecordRaw[] = [
         path: '/bands/:id',
         name: 'BandsView',
         component: () => import('../pages/BandsView.vue'),
-        meta: {
-          title: 'View band',
-        },
       },
     ],
   },
@@ -34,18 +28,12 @@ export const routes: RouteRecordRaw[] = [
     path: '/albums/:id',
     name: 'AlbumView',
     component: () => import('../pages/albums/AlbumView.vue'),
-    meta: {
-      title: 'Artist album',
-    },
   },
   {
     path: '/albums/add/:id',
     name: 'AlbumAdd',
     props: true,
     component: () => import('../pages/albums/AlbumAdd.vue'),
-    meta: {
-      title: 'Add Album',
-    },
   },
   {
     path: '/:pathMatch(.*)*',
