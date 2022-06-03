@@ -52,19 +52,19 @@ const showByIndex: Ref<null | number> = ref(null);
       @mouseover="showByIndex = track.number"
     >
       <div class="flex items-center w-full">
-        <div class="flex items-center w-4 mr-2 text-sm leading-7 text-center cursor-pointer text-slate-600">
+        <div class="flex items-center mr-2 text-sm leading-7 text-center cursor-pointer w-7 text-slate-600">
           <button
             v-if="currentTrack?.id === track.id || showByIndex === track.number"
-            class="w-4 h-4"
+            class="w-full h-full"
           >
             <IconPause
               v-if="isPlaying && currentTrack?.id === track.id"
-              class="w-full"
+              class="w-7 h-7"
               @click="musicPlayer.pause()"
             />
             <IconPlay
               v-else
-              class="w-full"
+              class="w-7 h-7"
               @click="onPlay(track)"
               @mouseover="showByIndex = track.number"
             />
@@ -72,7 +72,7 @@ const showByIndex: Ref<null | number> = ref(null);
 
           <span
             v-else
-            class="w-full text-center"
+            class="w-full text-lg text-center"
           >
             {{ track.number }}.
           </span>
