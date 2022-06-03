@@ -1,6 +1,6 @@
 # Check out this app here - [w4stedfy music app](https://w4stedfy.web.app/)
 
-## Made with:
+## Features:
 
 - ⚡ [Vue 3](https://github.com/vuejs/vue-next), [Vite 2](https://github.com/vitejs/vite), [pnpm](https://pnpm.io)
 
@@ -8,7 +8,7 @@
 
 - 💪 TypeScript
 
-- ✨ [Tailwind](https://tailwindcss.com/) highly customizable styles 
+- 💫 [Tailwind](https://tailwindcss.com/) highly customizable styles 
 
 - 🔊 [Howler.js](https://howlerjs.com/) modern audio library
 
@@ -30,4 +30,3 @@ $ pnpm typecheck
 # Compiles and minifies for production and launch server
 $ pnpm build
 $ pnpm preview
-```
