@@ -22,11 +22,6 @@ export default defineConfig({
       dts: 'src/auto-imports.d.ts',
     }),
   ],
-  build: {
-    rollupOptions: {
-      input: path.resolve('googledd008bc8ac6199f4.html', ''),
-    },
-  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
