@@ -8,7 +8,7 @@
 
 - 💪 TypeScript
 
-- 💫 [Tailwind](https://tailwindcss.com/) highly customizable styles 
+- 🌀 [Tailwind](https://tailwindcss.com/) highly customizable styles 
 
 - 🔊 [Howler.js](https://howlerjs.com/) modern audio library
 
