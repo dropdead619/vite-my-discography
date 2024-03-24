@@ -1,32 +1,7 @@
-# Check out this app here - [w4stedfy music app](https://w4stedfy.web.app/)
+# Vue 3 + Vite
 
-## Features:
+This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-- ⚡ [Vue 3](https://github.com/vuejs/vue-next), [Vite 2](https://github.com/vitejs/vite), [pnpm](https://pnpm.io)
+## Recommended IDE Setup
 
-- 🍍 State Management via [Pinia](https://pinia.vuejs.org/)
-
-- 💪 TypeScript
-
-- 🌀 [Tailwind](https://tailwindcss.com/) highly customizable styles 
-
-- 🔊 [Howler.js](https://howlerjs.com/) modern audio library
-
-- 👁 Strong [Eslint](https://eslint.org) support + autofix
-
-# install dependencies (if you don't have pnpm installed, run: npm install -g pnpm)
-$ pnpm i
-
-# Compiles and hot-reloads for development
-$ pnpm dev
-
-# Lint files with --fix
-$ pnpm lint-fix
-
-# Lint and typecheck files
-$ pnpm lint
-$ pnpm typecheck
-
-# Compiles and minifies for production and launch server
-$ pnpm build
-$ pnpm preview
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).

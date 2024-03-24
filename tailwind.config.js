@@ -1,4 +1,5 @@
-module.exports = {
+/** @type {import('tailwindcss').Config} */
+export default {
   darkMode: 'class',
   content: [
     './index.html',
@@ -10,8 +11,14 @@ module.exports = {
     },
 
     extend: {
+      container: {
+        padding: '16px',
+      },
       screens: {
         'ultra-sm': '364px',
+      },
+      colors: {
+        'label-divider': '#E0E0E0',
       },
       backgroundColor: {
         'theme-dark-4': '#1A1A1A',

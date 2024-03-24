@@ -1,0 +1,13 @@
+export { default as IconBack } from './IconBack.vue';
+export { default as IconMoon } from './IconMoon.vue';
+export { default as IconSun } from './IconSun.vue';
+export { default as IconNext } from './IconNext.vue';
+export { default as IconCheck } from './IconCheck.vue';
+export { default as IconNoSound } from './IconNoSound.vue';
+export { default as IconPause } from './IconPause.vue';
+export { default as IconPlay } from './IconPlay.vue';
+export { default as IconPlus } from './IconPlus.vue';
+export { default as IconPrevious } from './IconPrevious.vue';
+export { default as IconSound } from './IconSound.vue';
+export { default as IconMic } from './IconMic.vue';
+export { default as IconHome } from './IconHome.vue';
