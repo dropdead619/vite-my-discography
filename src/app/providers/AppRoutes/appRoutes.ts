@@ -20,6 +20,10 @@ export class AppRoutes {
   static getAlbums(bandId: string) {
     return getRoute(AppPages.albums, { bandId });
   }
+
+  static getTracks(albumId: string) {
+    return getRoute(AppPages.tracks, { albumId });
+  }
 }
 
 function getRoute<T extends object = {}>(name: string, params: T): IRoute<T> {

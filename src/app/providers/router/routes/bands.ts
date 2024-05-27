@@ -4,6 +4,6 @@ export const routeName = 'BandsPage';
 
 export const route: RouteRecordRaw = {
   name: routeName,
-  path: '/bands',
+  path: '/',
   component: () => import('@/pages/bands'),
 };

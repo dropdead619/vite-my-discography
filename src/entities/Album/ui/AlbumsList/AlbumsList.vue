@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { IAlbum } from '../../model/album.dto';
 import { ContentCard } from '@/shared/ui/ContentCard';
-import { ReleaseType } from '@/shared/lib/types';
+import { IAlbum, ReleaseType } from '@/shared/lib/types';
+import { AppPages } from '@/app/providers';
 
 const props = defineProps<{
   contentType: ReleaseType;
@@ -26,7 +26,7 @@ const releaseType = computed(() => {
 });
 
 function redirectToAlbum(id: string) {
-  router.push({ name: 'AlbumView', params: { id } });
+  router.push({ name: AppPages.tracks, params: { albumId: id } });
 }
 </script>
 

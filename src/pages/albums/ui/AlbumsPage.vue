@@ -1,12 +1,10 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import type { IBand } from '@/entities/Band/model';
 import { useBandStore } from '@/entities/Band/model';
-import { ReleaseType } from '@/shared/lib/types';
-import AlbumsList from '@/entities/Album/ui/AlbumsList/AlbumsList.vue';
+import { IAlbum, IBand, ReleaseType } from '@/shared/lib/types';
 import { IconPlus } from '@/shared/ui/icons';
 import { useAlbumStore } from '@/entities/Album/model/album.store';
-import type { IAlbum } from '@/entities/Album/model/album.dto';
+import { AlbumsList } from '@/entities/Album/ui/AlbumsList';
 
 const route = useRoute();
 const router = useRouter();

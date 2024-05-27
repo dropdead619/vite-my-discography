@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout !block sm:!grid">
     <slot class="navbar" name="navbar" />
     <main class="content">
       <router-view />
@@ -14,7 +14,7 @@
   display: grid;
   height: 100%;
   grid-template-columns: 180px 1fr;
-  grid-template-rows: 1fr 48px;
+  grid-template-rows: 1fr;
   grid-template-areas:
     'navbar content'
     'music-player music-player';

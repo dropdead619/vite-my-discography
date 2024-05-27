@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia';
 import { ref as fbRef, uploadBytesResumable } from 'firebase/storage';
 import { doc, getDocs, query, setDoc, where } from 'firebase/firestore';
-import type { ITrack } from './track.dto';
 import { db, storage, tracksRef } from '@/app/firebase-app';
 import { generateID } from '@/shared/lib/utils/generate';
 import { getFileExtension } from '@/shared/lib/utils/get';
+import { ITrack } from '@/shared/lib/types';
 
 export const useTrackStore = defineStore('tracks', () => {
   const currentTracks = ref<ITrack[]>([]);

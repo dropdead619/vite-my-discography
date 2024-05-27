@@ -1,7 +1,7 @@
 import { getDocs, query, where } from 'firebase/firestore';
 import { defineStore } from 'pinia';
-import type { IAlbum } from './album.dto';
 import { contentRef } from '@/app/firebase-app';
+import { IAlbum } from '@/shared/lib/types';
 
 export const useAlbumStore = defineStore('albums', () => {
   async function fetchAlbums(bandId: string): Promise<IAlbum[]> {

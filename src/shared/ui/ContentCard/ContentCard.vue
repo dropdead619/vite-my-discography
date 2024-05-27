@@ -68,7 +68,7 @@ const imageSize = computed(() => {
       >
     </div>
     <div class="p-4 pt-2">
-      <h2 class="font-semibold">
+      <h2 class="font-semibold !h-fit" :class="imageSize">
         {{ props.name }}
         <span v-if="props.year" class="text-xs"> ({{ props.year }})</span>
       </h2>
